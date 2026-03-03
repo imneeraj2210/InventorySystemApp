@@ -1,0 +1,31 @@
+﻿@model IEnumerable<InventorySystemApp.Models.Order>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Status</th>
+         
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.OrderDate.ToShortDateString()</td>
+                <td>
+                    <span class="badge @(item.Status == "Rejected" ? "bd-danger" : "bg-info")">@item.Status</span>
+                    
+                    </td>
+            </tr>
+        }
+        
+    </tbody>
+    <tr>
+        <td></td>
+    </tr>
+</table>

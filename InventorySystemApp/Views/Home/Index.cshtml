@@ -1,0 +1,81 @@
+﻿@model  IEnumerable<InventorySystemApp.Models.Product>
+
+   @if(TempData["Success"] !=null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btnm-close" data-bs-dismiss="alert"  aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btnm-close" data-bs-dismiss="alert"  aria-label="Close"></button>
+    </div>
+}
+
+<div class="row">
+    <div class="col">
+        <div id="mainCarousel" class="carousel slide shadow" data-bs-ride="carousel">
+            <div class="carousel-inner" id="carouselContent">
+                <div class="carousel-item active">
+                    <img src="/images/default-banner.jpg" id="dispS1Img" class="d-block w-100" style="height:400px; object-fit:cover;">
+                    <div class="carousel-caption"><h2 id="dispS1Title">Welcome to Our Store</h2></div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/images/default-banner2.jpg" id="dispS2Img" class="d-block w-100" style="height:400px; object-fit:cover;">
+                    <div class="carousel-caption"><h2 id="dispS2Title">Summer Sale</h2></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const data = JSON.parse(localStorage.getItem('carouselSettings'));
+                if (data) {
+                    if(data.s1Img) document.getElementById('dispS1Img').src = data.s1Img;
+                    if(data.s1Title) document.getElementById('dispS1Title').innerText = data.s1Title;
+                    if(data.s2Img) document.getElementById('dispS2Img').src = data.s2Img;
+                    if(data.s2Title) document.getElementById('dispS2Title').innerText = data.s2Title;
+                }
+            });
+        </script>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm">
+
+                <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/no-image.png" : item.ImageUrl)"
+                     class="card-img-top p-3"
+                     alt="@item.Name"
+                     style="height: 180px; object-fit: contain;">
+
+                <div class="card-body text-center">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="text-muted mb-1">Price: ₹ @item.Price.ToString("N2")</p>
+
+                    <p class="badge @(item.Stock > 0 ? "bg-success" : "bg-danger")">
+                        @(item.Stock > 0 ? $"In Stock: {item.Stock}" : "Out of Stock")
+                    </p>
+
+                    @if (item.Stock > 0 && !User.IsInRole("Admin"))
+                    {
+                        <form asp-controller="Order" asp-action="PlaceOrder" method="post" class="mt-2">
+                            <input type="hidden" name="productId" value="@item.Id" />
+                            <div class="input-group input-group-sm">
+                                <input type="number" name="quantity" class="form-control" value="1" min="1" max="@item.Stock" />
+                                <button type="submit" class="btn btn-primary">Buy Now</button>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<InventorySystemApp.Models.Order>
+
+<h2>Manage All Orders</h2>
+
+<table  class="table table-striped">
+<thead>
+    <tr>
+        <th>Customer</th>
+         <th>Product</th>
+         <th>QTY</th>
+         <th>Date</th>
+         <th>Status</th>
+         <th>Action</th>
+    </tr>
+</thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.CustomerName</td>
+                <td>@order.ProductName</td>
+                <td>@order.Quantity</td>
+                <td>@order.OrderDate.ToShortDateString()</td>
+                <td>
+                    <span class="badge @(order.Status == "Approved" ? "bg-success" : (order.Status == "Rejected" ? "bg-danger" : "bg-warning"))">
+                        @order.Status
+                    </span>
+                </td>
+                <td>
+                    @if(order.Status == "Pending")
+                    {
+                        <form asp-action="UpdateStatus"  method="post" style="display:inline">
+                            <input type="hidden" name="orderId" value="@order.Id" />
+                            <button name="status" value="Approved" class="btn btn-success">Approved</button>
+                            <button name="status" value="Rejected" class="btn btn-danger">Rejected</button>
+                        </form>
+                    }
+                </td>
+                <td>@order.CustomerName</td>
+            </tr>
+        }
+    </tbody>
+</table>
