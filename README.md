@@ -1,29 +1,26 @@
-﻿# InventorySystemApp
+# InventorySystemApp
 
 ASP.NET Core MVC + PostgreSQL + Dapper based Inventory / Mini E-Commerce System.
 
 ## Features
 
-### Customer
+### Customer Features
 - Registration & Login
-- Product Listing
-- Search Products
+- Product Search
 - Sort & Filter
 - Pagination
 - Add to Cart
-- Cart Quantity Update
-- Checkout Confirmation
+- Checkout
 - My Orders
 
-### Admin
-- Dashboard Statistics
-- Add / Edit / Delete Products
-- Product Image Upload
-- Manage Orders
-- Website Settings (Logo + Site Name)
+### Admin Features
+- Dashboard
+- Product CRUD
+- Order Management
+- Website Settings
+- Logo Upload
 
 ## Tech Stack
-
 - ASP.NET Core MVC
 - C#
 - PostgreSQL
@@ -31,13 +28,9 @@ ASP.NET Core MVC + PostgreSQL + Dapper based Inventory / Mini E-Commerce System.
 - Bootstrap
 - Git & GitHub
 
-## How to Run
-
-1. Clone repository
-2. Update connection string in appsettings.json
-3. Run database SQL scripts
-4. Run application
+## Database
+Database script included as:
+InventoryDBScript.sql
 
 ## Author
-
 Neeraj Sharma
