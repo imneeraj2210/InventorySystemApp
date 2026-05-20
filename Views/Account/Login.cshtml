@@ -1,0 +1,76 @@
+﻿@model InventorySystemApp.Models.User
+
+<div class="container mt-4">
+
+    <h2>Login</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["Success"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @TempData["Error"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+        </div>
+    }
+
+    <form method="post">
+
+        <div asp-validation-summary="All"
+             class="text-danger mb-2">
+        </div>
+
+        <div class="mb-3">
+            <label>Username</label>
+
+            <input asp-for="Username"
+                   class="form-control" />
+
+            <span asp-validation-for="Username"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Password</label>
+
+            <input asp-for="Password"
+                   type="password"
+                   class="form-control" />
+
+            <span asp-validation-for="Password"
+                  class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-primary">
+            Login
+        </button>
+
+    </form>
+
+    <br />
+
+    <a asp-action="Register">
+        New User? Register Here
+    </a>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

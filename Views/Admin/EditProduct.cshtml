@@ -1,0 +1,76 @@
+﻿@model InventorySystemApp.Models.Product
+
+<div class="container mt-4">
+
+    <h2>Edit Product</h2>
+
+    <form method="post" enctype="multipart/form-data">
+
+        <input asp-for="Id" type="hidden" />
+
+        <div class="mb-3">
+            <label>Name</label>
+
+            <input asp-for="Name"
+                   class="form-control" />
+
+            <span asp-validation-for="Name"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Price</label>
+
+            <input asp-for="Price"
+                   class="form-control" />
+
+            <span asp-validation-for="Price"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Stock</label>
+
+            <input asp-for="Stock"
+                   class="form-control" />
+
+            <span asp-validation-for="Stock"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+
+            <label>Current Image</label>
+            <br />
+
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl"
+                     width="120"
+                     class="img-thumbnail mb-2" />
+            }
+
+        </div>
+
+        <div class="mb-3">
+            <label>Upload New Image</label>
+
+            <input type="file"
+                   name="imageFile"
+                   class="form-control" />
+        </div>
+        <button type="submit"
+                class="btn btn-success">
+            Update
+        </button>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
+    }
+}

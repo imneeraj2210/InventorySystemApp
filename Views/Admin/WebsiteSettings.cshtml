@@ -1,0 +1,80 @@
+﻿@model InventorySystemApp.Models.WebsiteSetting
+
+<div class="container mt-4">
+
+    <h2>
+        Website Settings
+    </h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success
+            alert-dismissible
+            fade show">
+
+            @TempData["Success"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+
+        </div>
+    }
+
+    <form method="post"
+          enctype="multipart/form-data">
+
+        <input asp-for="Id"
+               type="hidden" />
+
+        <div class="mb-3">
+
+            <label>
+                Website Name
+            </label>
+
+            <input asp-for="SiteName"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>
+                Current Logo
+            </label>
+
+            <br />
+
+            @if (!string.IsNullOrEmpty(
+                Model.LogoUrl))
+            {
+                <img src="@Model.LogoUrl"
+                     width="120"
+                     class="img-thumbnail mb-2" />
+            }
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>
+                Upload Logo
+            </label>
+
+            <input type="file"
+                   name="logoFile"
+                   class="form-control" />
+
+        </div>
+
+        <button class="btn btn-success">
+
+            Save Settings
+
+        </button>
+
+    </form>
+
+</div>

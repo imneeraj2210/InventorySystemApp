@@ -1,0 +1,107 @@
+﻿@model IEnumerable<InventorySystemApp.Models.Order>
+
+<div class="container mt-4">
+
+    <h2>Manage Orders</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show"
+             role="alert">
+            @TempData["Success"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show"
+             role="alert">
+            @TempData["Error"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+        </div>
+    }
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.CustomerName</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Status</td>
+
+                    <td>
+
+                        @if (item.Status == "Pending")
+                        {
+                            <form asp-action="UpdateStatus"
+                                  asp-controller="Admin"
+                                  method="post"
+                                  style="display:inline;">
+
+                                <input type="hidden"
+                                       name="orderID"
+                                       value="@item.Id" />
+
+                                <input type="hidden"
+                                       name="status"
+                                       value="Approved" />
+
+                                <button class="btn btn-success btn-sm">
+                                    Approve
+                                </button>
+                            </form>
+
+                            <form asp-action="UpdateStatus"
+                                  asp-controller="Admin"
+                                  method="post"
+                                  style="display:inline;">
+
+                                <input type="hidden"
+                                       name="orderID"
+                                       value="@item.Id" />
+
+                                <input type="hidden"
+                                       name="status"
+                                       value="Rejected" />
+
+                                <button class="btn btn-danger btn-sm">
+                                    Reject
+                                </button>
+                            </form>
+                        }
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
